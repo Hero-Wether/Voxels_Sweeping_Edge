@@ -1,0 +1,39 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"lab:example": {
+				"volume": 0.75,"pitch" : [ 0.80, 1.20 ],
+				"events": {
+					"ambient": "",
+					"ambient.tame" : "",
+					"shoot": "",
+					"hurt": "",
+					"fall_small": "",
+					"fall_big": "",
+					"death": "",
+					"step": "",
+					"eat": {
+						"pitch": [0.80,1.20],
+						"volume": [0.75,1.10],
+						"sound": ""
+					},
+					"ambient.baby" : {
+						"pitch": [1.90,2.00],
+						"volume": [0.75,1.10],
+						"sound": ""
+					},
+					"death.baby" : {
+						"pitch": [1.90,2.00],
+						"volume": [0.75,1.10],
+						"sound": ""
+					},
+					"hurt.baby" : {
+						"pitch": [1.90,2.00],
+						"volume": [0.75,1.10],
+						"sound": ""
+					}
+				}
+			}
+		}
+	}
+}

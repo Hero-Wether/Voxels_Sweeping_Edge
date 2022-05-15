@@ -1,0 +1,66 @@
+pack.name=§cSweeping §fEdge §7V1
+pack.description=§cSweeping §fEdge §rBy Hero Wether §6Loadisk v2 Contributors: §5Donthedev §r& §aCaliferr
+
+item.lab:clapper.name=Clapper
+
+
+debug.mpip=§cMPIP§r %2
+debug.keyframe= §2FRAME§r %2
+debug.decor_count= §3DECOR§r %2
+debug.game_stage= §4STAGE§r %2
+debug.quest_stage= §5QUEST§r %2
+debug.check_light= §6LIGHT§r %2
+debug.attack_state= §bATK STAGE§r %2
+debug.check_p_rx= §2RX§r %2
+debug.check_p_ry= §2RY§r %2
+debug.check_biome0=§e Beach 
+debug.check_biome1=§6 Desert 
+debug.check_biome2=§2 Extreme Hills 
+debug.check_biome3=§a Flat 
+debug.check_biome4=§2 Forest 
+debug.check_biome5=§1 Ice 
+debug.check_biome6=§a Jungle 
+debug.check_biome7=§6 Mesa 
+debug.check_biome8=§5 Mushroom Island 
+debug.check_biome9=§9 Ocean 
+debug.check_biome10=§a Plain 
+debug.check_biome11=§9 River 
+debug.check_biome12=§6 Savanna 
+debug.check_biome13=§8 Stone Beach 
+debug.check_biome14=§2 Swamp 
+debug.check_biome15=§b Taiga 
+debug.check_biome16=§f The End 
+debug.check_biome17=§c The nether 
+player.mpip= you are player§6 %2
+
+player.online= §6is online!
+
+choice.init00=§l§6[!]§rAre you sure you want to reset? Run §l/function/yes §nto §l§2confirm §ror §n§lfunction/no §rto §l§4cancel.
+choice.init01=§l§6[!]§r§6Initalizing: §rGame reset.
+choice.export00=§l§6[!]§rRun §l/function/yes §nto §l§2Enable §ror §n§lfunction/no §rto §l§4Disable: §6Export Mode.
+choice.export01=§l§6[!]§r§6Export Mode Enabled.
+choice.export02=§l§6[!]§r§6Export Mode Disabled.
+choice.debugger00=§l§6[!]§rDebugger §2Enabled.§r Run this function again to §4disable.
+
+choice.common.yes=§l§2Confirmed
+choice.common.no=§l§4Canceled
+
+loadisk.version=§6Loadisk v2 pre-alpha 0.0.1
+line.one=§cSweeping §fEdge §7V1
+
+##Sweeping
+charge.one=
+charge.two=
+charge.three=
+charge.four=
+charge.five=
+charge.six=
+charge.seven=
+charge.eight=
+charge.nine=
+charge.ten=
+charge.eleven=
+charge.twelve=
+charge.thirteen=
+charge.fourteen=
+charge.fifteen=
