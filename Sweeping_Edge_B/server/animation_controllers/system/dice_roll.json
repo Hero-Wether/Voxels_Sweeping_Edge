@@ -1,0 +1,49 @@
+{
+	"format_version": "1.13.0",//Has to be 1.13 for the controller to take molang parameters
+	"animation_controllers": {
+		"controller.animation.lab.dice_roll": {
+			"initial_state": "init",
+			"states": {
+				"init": {"transitions": [{"re_roll": "(1.0)"}]},//Used to void a false molang error
+				"re_roll": {
+					"transitions": [
+						{"roll1": "variable.random == 1"},
+						{"roll2": "variable.random == 2"},
+						{"roll3": "variable.random == 3"},
+						{"roll4": "variable.random == 4"},
+						{"roll5": "variable.random == 5"},
+						{"roll6": "variable.random == 6"}
+					],
+					"on_entry": ["variable.random = math.random_integer(1, 6);"] //Applies a value of 1-6 to variable.random
+				},
+				"roll1": {
+					"on_entry": [
+						"variable.random = 0;",//Reset the variable to 0
+						"/say rolled 1" //Executed command 
+					],
+					"transitions": [{"re_roll": "(1.0)"}]
+				},
+				"roll2": {
+					"on_entry": ["variable.random = 0;","/say rolled 2"],
+					"transitions": [{"re_roll": "(1.0)"}]
+				},
+				"roll3": {
+					"on_entry": ["variable.random = 0;","/say rolled 3"],
+					"transitions": [{"re_roll": "(1.0)"}]
+				},
+				"roll4": {
+					"on_entry": ["variable.random = 0;","/say rolled 4"],
+					"transitions": [{"re_roll": "(1.0)"}]
+				},
+				"roll5": {
+					"on_entry": ["variable.random = 0;","/say rolled 5"],
+					"transitions": [{"re_roll": "(1.0)"}]
+				},
+				"roll6": {
+					"on_entry": ["variable.random = 0;","/say rolled 6"],
+					"transitions": [{"re_roll": "(1.0)"}]
+				}
+			}
+		}
+	}
+}

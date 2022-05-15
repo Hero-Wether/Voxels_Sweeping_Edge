@@ -1,0 +1,112 @@
+{
+	"format_version": "1.18.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "lab:decor",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"is_experimental": false,
+			"scripts": {"animate": ["rotate"]},
+			"animations": {"rotate": "controller.animation.lab.decor.rotate"}
+		},
+		"component_groups": {
+			"lab:anim":{"minecraft:is_sheared":{}},
+      "lab:scale":{"minecraft:is_baby":{},"minecraft:scale":{"value": 0.4},"minecraft:collision_box": {"width": 0.1,"height": 0.1}},
+      "lab:rotate":{"minecraft:is_stunned":{}}
+		},
+		"components": {
+      "minecraft:scale":{"value":1},
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "on_interact": {
+              "filters": {
+                  "all_of": [
+                    {"test":"has_component","subject":"self","operator":"!=","value":"minecraft:is_baby"},
+                    {"test":"is_family","subject":"other","value":"player"},
+                    {"test":"is_sneaking","subject":"other","operator":"!=","value":true},
+                    {"test":"has_ability","subject":"other","value": "instabuild"}
+                  ]
+              },
+              "event": "lab:scale_down_event"
+            }
+          },
+          {
+            "on_interact": {
+              "filters": {
+                  "all_of": [
+                    {"test":"has_component","subject":"self","operator":"==","value":"minecraft:is_baby"},
+                    {"test":"is_family","subject":"other","value":"player"},
+                    {"test":"is_sneaking","subject":"other","operator":"!=","value":true},
+                    {"test":"has_ability","subject":"other","value": "instabuild"}
+                  ]
+              },
+              "event": "lab:scale_up_event"
+            }
+          },
+          {
+            "on_interact": {
+              "filters": {
+                  "all_of": [
+                    {"test":"has_component","subject":"self","operator":"!=","value":"minecraft:is_sheared"},
+                    {"test":"is_family","subject":"other","value":"player"},
+                    {"test":"is_sneaking","subject":"other","operator":"==","value":true},
+                    {"test":"has_ability","subject":"other","value": "instabuild"}
+                  ]
+              },
+              "event": "lab:alt_anim_event"
+            }
+          },
+          {
+            "on_interact": {
+              "filters": {
+                  "all_of": [
+                    {"test":"has_component","subject":"self","operator":"==","value":"minecraft:is_sheared"},
+                    {"test":"is_family","subject":"other","value":"player"},
+                    {"test":"is_sneaking","subject":"other","operator":"==","value":true},
+                    {"test":"has_ability","subject":"other","value": "instabuild"}
+                  ]
+              },
+              "event": "lab:default_anim_event"
+            }
+          }
+        ]
+      },
+			"minecraft:health": {"value": 999,"max": 999},
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {"test": "is_family","subject": "other","value": "mob"},
+                {
+                  "all_of": [
+                    {"test":"is_family","subject":"other","value":"player"},
+                    {"test":"has_ability","subject":"other","operator":"!=","value": "instabuild"}
+                  ]
+                }
+              ]
+            }
+          },
+          "deals_damage": false
+        }
+      },
+      "minecraft:on_hurt_by_player": {"event": "lab:rotate_event","target": "self"},
+			"minecraft:persistent": {},
+			"minecraft:type_family": {"family": ["decor","no_effect", "object"]},
+      "minecraft:knockback_resistance": {"value": 100},
+      "minecraft:collision_box": {"width": 0.1,"height": 0.1},
+			"minecraft:physics": {"has_gravity": true,"has_collision": true},
+			"minecraft:pushable": {"is_pushable": false,"is_pushable_by_piston": false},
+			"minecraft:fire_immune": true
+		},
+		"events":{
+			"lab:alt_anim_event": {"add": {"component_groups": ["lab:anim"]}},
+      "lab:default_anim_event": {"remove": {"component_groups": ["lab:anim"]}},
+      "lab:scale_down_event": {"add": {"component_groups": ["lab:scale"]}},
+      "lab:scale_up_event": {"remove": {"component_groups": ["lab:scale"]}},
+      "lab:rotate_event": {"add": {"component_groups": ["lab:rotate"]}},
+      "lab:kill_rotate_event": {"remove": {"component_groups": ["lab:rotate"]}}
+		}
+	}
+}

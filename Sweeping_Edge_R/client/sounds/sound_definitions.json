@@ -1,0 +1,110 @@
+{
+   "format_version": "1.14.0",
+   "sound_definitions": {
+      "lab.example": {
+         "category": "neutral",
+         "sounds": [
+            "sounds/object/"
+         ]
+      }
+   },
+   "game.player.attack.strong": {
+      "sounds": [
+         {
+            "name": "sounds/mob/player/attack/strong4",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/strong5",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/strong6",
+            "volume": 0.7
+         }
+      ]
+   },
+   "game.player.attack.knockback": {
+      "sounds": [
+         {
+            "name": "sounds/mob/player/attack/knockback1",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/knockback2",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/knockback3",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/knockback4",
+            "volume": 0.7
+         }
+      ]
+   },
+   "game.player.attack.sweep": {
+      "sounds": [
+         {
+            "name": "sounds/mob/player/attack/sweep1",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/sweep2",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/sweep3",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/sweep4",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/sweep5",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/sweep6",
+            "volume": 0.7
+         },
+         {
+            "name": "sounds/mob/player/attack/sweep7",
+            "volume": 0.7
+         }
+      ]
+   },
+   "game.player.hurt": {
+      "category": "player",
+      "sounds": [
+         "sounds/damage/hit1",
+         {
+            "name": "sounds/damage/hit2",
+            "load_on_low_memory": true
+         },
+         "sounds/damage/hit3"
+      ]
+   },
+   "game.player.drown": {
+      "category": "player",
+      "sounds": [
+         "sounds/damage/drown1",
+         "sounds/damage/drown2",
+         "sounds/damage/drown3",
+         "sounds/damage/drown4"
+      ]
+   },
+   "game.player.die": {
+      "category": "player",
+      "sounds": [
+         "sounds/damage/hit1",
+         {
+            "name": "sounds/damage/hit2",
+            "load_on_low_memory": true
+         },
+         "sounds/damage/hit3"
+      ]
+   }
+}

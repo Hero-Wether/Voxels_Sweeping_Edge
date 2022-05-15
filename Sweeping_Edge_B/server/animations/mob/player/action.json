@@ -1,0 +1,15 @@
+{
+    "format_version": "1.10.0",
+    "animations": {
+        "animation.lab.player.join": {
+            "animation_length": 10.5,
+            "loop": false,
+            "timeline": {
+                "10.0": [
+                    "/function root/system/operations/mpip",
+                    "/function root/mob/player/on_join"
+                ]
+            }
+        }
+    }
+}

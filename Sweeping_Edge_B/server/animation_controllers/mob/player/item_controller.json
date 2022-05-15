@@ -1,0 +1,24 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+		"controller.animation.lab.player.items": {
+			"initial_state" : "state_filter",
+			"states": {
+				"swing_item": {
+					"transitions": [{"state_filter": "variable.attack_time == 0.0 || q.get_equipped_item_name != 'name'"}],
+					"on_entry": ["/say triggered by swing_item"]
+				},
+				"use_item": {
+					"transitions": [{"state_filter": "!q.is_using_item || q.get_equipped_item_name != 'clapper'"}],
+					"on_entry": ["/function root/plugins/cinema/clapper"]
+				},
+				"state_filter": {
+					"transitions": [
+						{"swing_item": "q.death_ticks == 0 && variable.attack_time > 0.0 && q.get_equipped_item_name == 'name'"},
+						{"use_item": "q.death_ticks == 0 && q.is_using_item && q.get_equipped_item_name == 'clapper'"}
+					]
+				}
+			}
+		}
+    }
+}

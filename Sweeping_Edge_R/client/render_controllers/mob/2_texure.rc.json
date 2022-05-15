@@ -1,0 +1,22 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.lab.2_texture": {
+      "arrays": {
+        "textures": {
+          "Array.skins": [
+            "Texture.skin00",
+            "Texture.skin01"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        { "*": "Material.default" }
+      ],
+      "textures": [
+        "Array.skins[query.skin_id]"
+      ]
+    }
+  }
+}

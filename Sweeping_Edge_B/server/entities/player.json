@@ -1,0 +1,694 @@
+{
+	"format_version": "1.17.10",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"custom_charge",
+					"vanilla_charge",
+					"root",
+					{"on_join":"q.is_alive && q.death_ticks == 0"}
+				]
+			},
+			"animations": {
+			  "root": "controller.animation.lab.player.root",
+			  "lifetime.c": "controller.animation.lab.player.lifetime",
+			  "input.c": "controller.animation.lab.player.input",
+			  "jump.c": "controller.animation.lab.player.jump",
+			  "sleep.c": "controller.animation.lab.player.sleep",
+			  "moving.c": "controller.animation.lab.player.moving",
+			  "items.c": "controller.animation.lab.player.items",
+			  "biome.c": "controller.animation.lab.biome_test",
+			  "mode.c": "controller.animation.lab.mode_test",
+			  "l_level.c": "controller.animation.lab.light_level.sensor",
+			  "on_join": "animation.lab.player.join",
+			  "rx_debug": "animation.lab.rx_debug",
+			  "ry_debug": "animation.lab.ry_debug",
+			  //Sweeping
+			  "vanilla_charge": "controller.animation.vanilla_charge",
+			  "custom_charge": "controller.animation.custom_charge", 
+			  "long_charge_default": "animation.player.long_charge",
+			  "medium_charge_default": "animation.player.medium_cooldown",
+			  "short_charge_default": "animation.player.short_cooldown",
+			  "no_weapon_charge": "animation.player.no_weapon_cooldown"
+			}
+		},
+		"component_groups": {
+			//Sweeping
+			"default_attack": {"minecraft:attack": {"damage": 1}},
+            "cooldown_attack": {"minecraft:attack": {"damage": -100},"minecraft:is_stunned": {}},
+			//Loadisk2
+			"lab:is_survival":{"minecraft:is_sheared":{}},"lab:is_creative":{"minecraft:is_stunned":{}},
+			"lab:is_biome0":{"minecraft:variant":{"value": 0}},"lab:is_biome1":{"minecraft:variant":{"value": 1}},
+			"lab:is_biome2":{"minecraft:variant":{"value": 2}},"lab:is_biome3":{"minecraft:variant":{"value": 3}},
+			"lab:is_biome4":{"minecraft:variant":{"value": 4}},"lab:is_biome5":{"minecraft:variant":{"value": 5}},
+			"lab:is_biome6":{"minecraft:variant":{"value": 6}},"lab:is_biome7":{"minecraft:variant":{"value": 7}},
+			"lab:is_biome8":{"minecraft:variant":{"value": 8}},"lab:is_biome9":{"minecraft:variant":{"value": 9}},
+			"lab:is_biome10":{"minecraft:variant":{"value": 10}},"lab:is_biome11":{"minecraft:variant":{"value": 11}},
+			"lab:is_biome12":{"minecraft:variant":{"value": 12}},"lab:is_biome13":{"minecraft:variant":{"value": 13}},
+			"lab:is_biome14":{"minecraft:variant":{"value": 14}},"lab:is_biome15":{"minecraft:variant":{"value": 15}},
+			"lab:is_biome16":{"minecraft:variant":{"value": 16}},"lab:is_biome17":{"minecraft:variant":{"value": 17}},
+			"lab:light_level00":{"minecraft:mark_variant":{"value": 0}},"lab:light_level01":{"minecraft:mark_variant":{"value": 1}},
+			"lab:light_level02":{"minecraft:mark_variant":{"value": 2}},"lab:light_level03":{"minecraft:mark_variant":{"value": 3}},
+			"lab:light_level04":{"minecraft:mark_variant":{"value": 4}},"lab:light_level05":{"minecraft:mark_variant":{"value": 5}},
+			"lab:light_level06":{"minecraft:mark_variant":{"value": 6}},"lab:light_level07":{"minecraft:mark_variant":{"value": 7}},
+			"lab:light_level08":{"minecraft:mark_variant":{"value": 8}},"lab:light_level09":{"minecraft:mark_variant":{"value": 9}},
+			"lab:light_level10":{"minecraft:mark_variant":{"value": 10}},"lab:light_level11":{"minecraft:mark_variant":{"value": 11}},
+			"lab:light_level12":{"minecraft:mark_variant":{"value": 12}},"lab:light_level13":{"minecraft:mark_variant":{"value": 13}},
+			"lab:light_level14":{"minecraft:mark_variant":{"value": 14}},"lab:light_level15":{"minecraft:mark_variant":{"value": 15}},
+			"lab:light_level16":{"minecraft:mark_variant":{"value": 16}},
+		//Vanilla Groups	
+			"minecraft:add_bad_omen": {
+				"minecraft:spell_effects": {"add_effects": [{"effect": "bad_omen","duration": 6000,"display_on_screen_animation": true}]},
+				"minecraft:timer": {"time": [0.0,0.0],"looping": false,
+				"time_down_event": {"event": "minecraft:clear_add_bad_omen","target": "self"}}
+			},
+			"minecraft:clear_bad_omen_spell_effect": {"minecraft:spell_effects": {}},
+			"minecraft:raid_trigger": {
+				"minecraft:raid_trigger": {"triggered_event": {"event": "minecraft:remove_raid_trigger","target": "self"}},
+				"minecraft:spell_effects": {"remove_effects": "bad_omen"}
+			}
+		},
+		"components": {
+			"minecraft:experience_reward": {
+				"on_death": "Math.Min(query.player_level * 7, 100)"
+			},
+			"minecraft:type_family": {
+				"family": [
+					"player"
+				]
+			},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.8
+			},
+			"minecraft:can_climb": {},
+			"minecraft:movement": {
+				"value": 0.1
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:attack": {
+				"damage": 1
+			},
+			"minecraft:player.saturation": {
+				"value": 20
+			},
+			"minecraft:player.exhaustion": {
+				"value": 20,
+				"max": 20
+			},
+			"minecraft:player.level": {
+				"value": 0,
+				"max": 24791
+			},
+			"minecraft:player.experience": {
+				"value": 0,
+				"max": 1
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": -1,
+				"inhale_time": 3.75,
+				"generates_bubbles": false
+			},
+			"minecraft:nameable": {
+				"always_show": true,
+				"allow_name_tag_renaming": false
+			},
+			"minecraft:physics": {},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:insomnia": {
+				"days_until_insomnia": 3
+			},
+			"minecraft:rideable": {
+				"seat_count": 2,
+				"family_types": [
+					"parrot_tame"
+				],
+				"pull_in_entities": true,
+				"seats": [
+					{
+						"position": [
+							0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 0,
+						"max_rider_count": 0,
+						"lock_rider_rotation": 0
+					},
+					{
+						"position": [
+							-0.4,
+							-0.2,
+							-0.1
+						],
+						"min_rider_count": 1,
+						"max_rider_count": 2,
+						"lock_rider_rotation": 0
+					}
+				]
+			},
+			"minecraft:conditional_bandwidth_optimization": {},
+			"minecraft:block_climber": {},
+			"minecraft:environment_sensor": {
+				"triggers": [
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "beach"},"event": "lab:is_biome0_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "desert"},"event": "lab:is_biome1_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "extreme_hills"},"event": "lab:is_biome2_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "flat"},"event": "lab:is_biome3_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "forest"},"event": "lab:is_biome4_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "ice"},"event": "lab:is_biome5_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "jungle"},"event": "lab:is_biome6_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "mesa"},"event": "lab:is_biome7_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "mushroom_island"},"event": "lab:is_biome8_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "ocean"},"event": "lab:is_biome9_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "plain"},"event": "lab:is_biome10_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "river"},"event": "lab:is_biome11_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "savanna"},"event": "lab:is_biome12_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "stone_beach"},"event": "lab:is_biome13_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "swamp"},"event": "lab:is_biome14_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "taiga"},"event": "lab:is_biome15_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "the_end"},"event": "lab:is_biome16_event"},
+				{"filters": {"test": "is_biome", "subject": "self", "operator": "==", "value": "the_nether"},"event": "lab:is_biome17_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 0}]},"event": "lab:light_level00_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 1}]},"event": "lab:light_level01_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 2}]},"event": "lab:light_level02_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 3}]},"event": "lab:light_level03_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 4}]},"event": "lab:light_level04_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 5}]},"event": "lab:light_level05_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 6}]},"event": "lab:light_level06_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 7}]},"event": "lab:light_level07_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 8}]},"event": "lab:light_level08_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 9}]},"event": "lab:light_level09_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 10}]},"event": "lab:light_level10_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 11}]},"event": "lab:light_level11_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 12}]},"event": "lab:light_level12_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 13}]},"event": "lab:light_level13_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 14}]},"event": "lab:light_level14_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 15}]},"event": "lab:light_level15_event"},
+				{"filters": {"all_of": [{"test": "light_level","operator": "==","value": 16}]},"event": "lab:light_level16_event"},
+				{"filters": {"test":"has_ability","subject":"other","value": "instabuild"},"event": "lab:is_creative_event"},
+				{"filters": {"test":"has_ability","subject":"other","operator": "!=","value": "instabuild"},"event": "lab:is_survival_event"},
+				{"filters": {"all_of": [{"test": "has_mob_effect","subject": "self","value": "bad_omen"},
+				{"test": "is_in_village","subject": "self","value": true}]},"event": "minecraft:trigger_raid"}
+			  ]
+			}
+		},
+		"events": {
+			//Sweeping
+			"default_attack": {
+				"add": {"component_groups": ["default_attack"]},
+				"remove": {"component_groups": ["cooldown_attack"]}
+			},
+			"cooldown_attack": {
+				"add": {"component_groups": ["cooldown_attack"]},
+				"remove": {"component_groups": ["default_attack"]}
+			},
+			//Loadisk2
+			"lab:is_biome0_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome0"]}
+			  },
+			  "lab:is_biome1_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome0","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome1"]}
+			  },
+			  "lab:is_biome2_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome0","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome2"]}
+			  },
+			  "lab:is_biome3_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome0","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome3"]}
+			  },
+			  "lab:is_biome4_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome0","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome4"]}
+			  },
+			  "lab:is_biome5_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome0","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome5"]}
+			  },
+			  "lab:is_biome6_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome0","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome6"]}
+			  },
+			  "lab:is_biome7_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome0","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome7"]}
+			  },
+			  "lab:is_biome8_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome0","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome8"]}
+			  },
+			  "lab:is_biome9_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome0",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome9"]}
+			  },
+			  "lab:is_biome10_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome0","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome10"]}
+			  },
+			  "lab:is_biome11_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome0","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome11"]}
+			  },
+			  "lab:is_biome12_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome0","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome12"]}
+			  },
+			  "lab:is_biome13_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome0","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome13"]}
+			  },
+			  "lab:is_biome14_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome0","lab:is_biome15","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome14"]}
+			  },
+			  "lab:is_biome15_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome0","lab:is_biome16","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome15"]}
+			  },
+			  "lab:is_biome16_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome0","lab:is_biome17"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome16"]}
+			  },
+			  "lab:is_biome17_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:is_biome1","lab:is_biome2","lab:is_biome3","lab:is_biome4","lab:is_biome5","lab:is_biome6","lab:is_biome7","lab:is_biome8","lab:is_biome9",
+					"lab:is_biome10","lab:is_biome11","lab:is_biome12","lab:is_biome13","lab:is_biome14","lab:is_biome15","lab:is_biome16","lab:is_biome0"
+				  ]
+				},
+				"add": {"component_groups": ["lab:is_biome17"]}
+			   },
+			   "lab:light_level00_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level00"
+				  ]
+				}
+			  },
+			  "lab:light_level01_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level00","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level01"
+				  ]
+				}
+			  },
+			  "lab:light_level02_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level00","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level02"
+				  ]
+				}
+			  },
+			  "lab:light_level03_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level00","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level03"
+				  ]
+				}
+			  },
+			  "lab:light_level04_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level00","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level04"
+				  ]
+				}
+			  },
+			  "lab:light_level05_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level00",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level05"
+				  ]
+				}
+			  },
+			  "lab:light_level06_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level00","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level06"
+				  ]
+				}
+			  },
+			  "lab:light_level07_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level00","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level07"
+				  ]
+				}
+			  },
+			  "lab:light_level08_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level00","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level08"
+				  ]
+				}
+			  },
+			  "lab:light_level09_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level00","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level09"
+				  ]
+				}
+			  },
+			  "lab:light_level10_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level00",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level10"
+				  ]
+				}
+			  },
+			  "lab:light_level11_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level00","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level11"
+				  ]
+				}
+			  },
+			  "lab:light_level12_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level00","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level12"
+				  ]
+				}
+			  },
+			  "lab:light_level13_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level00","lab:light_level14","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level13"
+				  ]
+				}
+			  },
+			  "lab:light_level14_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level00","lab:light_level15",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level14"
+				  ]
+				}
+			  },
+			  "lab:light_level15_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level00",
+					"lab:light_level16"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level15"
+				  ]
+				}
+			  },
+			  "lab:light_level16_event": {
+				"remove": {
+				  "component_groups": [
+					"lab:light_level01","lab:light_level02","lab:light_level03","lab:light_level04","lab:light_level05",
+					"lab:light_level06","lab:light_level07","lab:light_level08","lab:light_level09","lab:light_level10",
+					"lab:light_level11","lab:light_level12","lab:light_level13","lab:light_level14","lab:light_level15",
+					"lab:light_level00"
+				  ]
+				},
+				"add": {
+				  "component_groups": [
+					"lab:light_level16"
+					]
+				}
+			},
+			"lab:is_creative_event": {
+				"remove": {"component_groups": ["lab:is_survival"]},
+				"add": {"component_groups": ["lab:is_creative"]}
+			},
+			"lab:is_survival_event": {
+				"remove": {"component_groups": ["lab:is_creative"]},
+				"add": {"component_groups": ["lab:is_survival"]}
+			},  	
+			//Vanilla
+			"minecraft:gain_bad_omen": {
+				"add": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				}
+			},
+			"minecraft:clear_add_bad_omen": {
+				"remove": {
+					"component_groups": [
+						"minecraft:add_bad_omen"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"minecraft:clear_bad_omen_spell_effect"
+					]
+				}
+			},
+			"minecraft:trigger_raid": {
+				"add": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			},
+			"minecraft:remove_raid_trigger": {
+				"remove": {
+					"component_groups": [
+						"minecraft:raid_trigger"
+					]
+				}
+			}
+		}
+	}
+}

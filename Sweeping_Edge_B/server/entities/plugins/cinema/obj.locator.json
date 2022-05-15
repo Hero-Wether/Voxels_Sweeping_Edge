@@ -1,0 +1,25 @@
+//LID_Cinema: Locator Entity RP
+{
+	"format_version": "1.18.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "lab:locator",
+			"is_spawnable": false,"is_summonable": true,"is_experimental": false
+		},
+        "component_groups": {
+            "lab:despawn": {"minecraft:instant_despawn": {}}
+        },
+		"components": {
+            "minecraft:variant":{"value":0},
+			"minecraft:collision_box": {"width": 0.5,"height": 0.5},
+			"minecraft:physics": {"has_gravity": false,"has_collision": false},
+			"minecraft:pushable": {"is_pushable": false,"is_pushable_by_piston": false},
+			"minecraft:type_family": {"family": ["cinema","locator","game_object","no_effect"]},
+			"minecraft:damage_sensor": {"triggers": {"cause": "all","deals_damage": false}},
+			"minecraft:nameable": {},"minecraft:persistent": {},"minecraft:fire_immune": true
+		},
+		"events": {
+			"lab:despawn_event": {"add": {"component_groups": ["lab:despawn"]}}
+		}
+	}
+}

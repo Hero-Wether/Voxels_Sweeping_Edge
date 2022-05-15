@@ -1,0 +1,17 @@
+//LID_Cinema: Target Locator Entity RP
+{
+	"format_version": "1.18.0",
+	"minecraft:client_entity": {
+	  "description": {
+		"identifier": "lab:target_locator",
+		"materials": {"default": "entity_alphatest"},
+		"textures": {
+			"default": "textures/plugins/cinema/target_locator"
+		},
+		"geometry": {
+		  "default": "geometry.lab.target_locator"
+		},
+	   "render_controllers": ["controller.render.default"]
+	  }
+	}
+  }

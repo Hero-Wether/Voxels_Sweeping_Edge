@@ -1,0 +1,24 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+		"controller.animation.lab.mode_test": {
+			"initial_state" : "state_filter",
+			"states": {
+				"creative": {
+					"transitions": [{"state_filter": "!q.is_stunned"}],
+					"on_entry": ["/execute @a ~ ~ ~ effect @e[family=hidable] clear"]
+				},
+				"survival": {
+					"transitions": [{"state_filter": "!q.is_sheared"}],
+					"on_entry": ["/execute @a ~ ~ ~ effect @e[family=hidable] invisibility 1000000000 1 true"]
+				},
+				"state_filter": {
+					"transitions": [
+						{"survival": "q.is_sheared"},
+						{"creative": "q.is_stunned"}
+					]
+				}
+			}
+		}
+    }
+}

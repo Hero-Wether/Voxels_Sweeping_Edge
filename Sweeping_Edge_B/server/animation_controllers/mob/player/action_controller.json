@@ -1,0 +1,93 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.lab.player.lifetime": {
+			"initial_state": "on_death",
+			"states": {
+				"on_death": {
+					"transitions": [
+						{"on_alive": "!q.is_alive && q.death_ticks > 0"}
+					],
+					"on_exit": ["/function root/mob/player/on_death","/tag @s add is_dead"]
+				},
+				"on_alive": {
+					"on_exit": ["/function root/mob/player/on_alive","/tag @s remove is_dead"],
+					"transitions": [{"on_death": "q.is_alive"}]
+				}
+			}
+		},
+		"controller.animation.lab.player.input": {
+			"initial_state": "init",
+			"states": {
+				"left_click": {
+					"transitions": [{"init": "variable.attack_time == 0.0"}],
+					"on_exit": ["/function root/mob/player/action/input.left_click"]
+				},
+				"right_click": {
+					"transitions": [{"init": "!q.is_using_item"}],
+					"on_entry": ["/function root/mob/player/action/input.right_click"]
+				},
+				"init": {
+					"transitions": [
+						{"left_click": "variable.attack_time > 0.0"},
+						{"right_click": "q.is_using_item"}
+					]
+				}
+			}
+		},
+		"controller.animation.lab.player.jump": {
+			"initial_state": "init",
+			"states": {
+				"jump": {
+					"transitions": [{"init": "!q.is_jumping"}],
+					"on_exit": ["/function root/mob/player/action/jump"]
+				},
+				"init": {"transitions": [{"jump": "q.is_jumping"}]}
+			}
+		},
+		"controller.animation.lab.player.sleep": {
+			"initial_state": "init",
+			"states": {
+				"jump": {
+					"transitions": [{"init": "!q.is_sleeping"}],
+					"on_exit": []
+				},
+				"init": {"transitions": [{"jump": "q.is_sleeping"}]}
+			}
+		},
+		"controller.animation.lab.player.moving": {
+			"initial_state": "init",
+			"states": {
+				"moving": {
+					"transitions": [{"init": "!q.is_moving || q.is_sprinting"}],
+					"on_exit": ["/function root/mob/player/action/moving"]
+				},
+				"sprinting": {
+					"transitions": [{"init": "!q.is_sprinting"}],
+					"on_exit": ["/function root/mob/player/action/sprinting"]
+				},
+				"sneaking": {
+					"transitions": [{"init": "!q.is_sneaking"}],
+					"on_exit": ["/function root/mob/player/action/sneaking"]
+				},
+				"swimming": {
+					"transitions": [{"init": "!q.is_in_water"}],
+					"on_exit": ["/function root/mob/player/action/swimming"]
+				},
+				"idle": {
+					"transitions": [{"init": "q.is_moving"}],
+					"on_exit": ["/function root/mob/player/action/idle"]
+				},
+				"init": {
+					"transitions": [
+						{"moving": "q.is_moving && !q.is_sprinting"},
+						{"sprinting": "q.is_sprinting"},
+						{"sneaking": "q.is_sneaking"},
+						{"swimming": "q.is_in_water"},
+						{"idle": "!q.is_moving"}
+					]
+				}
+			}
+		}
+	}
+}

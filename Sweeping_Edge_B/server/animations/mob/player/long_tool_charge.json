@@ -1,0 +1,36 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.player.long_charge": {
+      "loop": false,
+      "animation_length": 1,
+      "timeline": {
+        "0.0": [
+          "/titleraw @s actionbar {\"rawtext\":[{\"translate\":\"charge.one\"}]}",
+          "@s cooldown_attack",
+          "/tag @s add sweeping"
+        ],
+        "0.05": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.one\"}]}",
+        "0.10": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.two\"}]}",
+        "0.15": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.three\"}]}",
+        "0.25": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.four\"}]}",
+        "0.30": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.five\"}]}",
+        "0.35": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.six\"}]}",
+        "0.45": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.seven\"}]}",
+        "0.50": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.eight\"}]}",
+        "0.55": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.nine\"}]}",
+        "0.65": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.ten\"}]}",
+        "0.70": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.eleven\"}]}",
+        "0.75": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.twelve\"}]}",
+        "0.85": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.thirteen\"}]}",
+        "0.90": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.fourteen\"}]}",
+        "0.95": "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.fifteen\"}]}",
+        "1.00": [
+          "/titleraw @s actionbar { \"rawtext\":[{\"translate\":\"charge.fifteen\"}]}",
+          "@s default_attack",
+          "/tag @s remove sweeping"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+//LID_Cinema: Keyframe AC
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.lab.kf.get_player": {//Assigns the next keyframe stage to the locator entity upon r load
+			"states": {
+				"variant01": {
+					"transitions": [{"state_filter": "!q.is_sheared"}],
+					"on_entry": [  "/scoreboard players add @e[type=lab:locator,r=2] score.frame 1"]
+				},
+				"state_filter": {"transitions": [{"variant01": "q.is_sheared"}]}
+			}
+		}
+	}
+}

@@ -1,0 +1,66 @@
+{
+  "format_version": "1.18.30",
+  "animation_controllers": {
+    "controller.animation.custom_charge": {
+      "states": {
+        "default": {
+          "on_entry": [
+            "@s default_attack"
+          ],
+          "transitions": [
+            {"long_tool_charge": "(variable.attack_time) && (q.equipped_item_any_tag('slot.weapon.mainhand', 'lab:long_tool_charge'))"},
+            {"medium_tool_charge": "(variable.attack_time) && (q.equipped_item_any_tag('slot.weapon.mainhand', 'lab:medium_tool_charge'))"},
+            {"short_tool_charge": "(variable.attack_time) && (q.equipped_item_any_tag('slot.weapon.mainhand', 'lab:short_tool_charge'))"},
+            {"no_tool_charge": "(variable.attack_time >= 0.20) && (variable.attack_time <= 0.50)"}
+          ]
+        },
+        //Sweeping Animation Set Up
+        "long_charge_default": {
+          "animations": ["long_charge_default"],
+          "on_entry": ["variable.long_charge_default = 20;" ],
+          "transitions": [{"long_charge_default_return": "variable.attack_time"},{"default": "variable.long_charge_default = variable.long_charge_default > 0 ? variable.long_charge_default - 1:0; return variable.long_charge_default == 0;"}]},
+        "long_charge_default_return": {
+          "transitions": [{"long_charge_default": "!variable.attack_time"}]},          
+
+        "medium_charge_default": {
+          "animations": ["medium_charge_default"],
+          "on_entry": ["variable.medium_charge_default = 16;"],
+          "transitions": [ {"medium_charge_default_return": "variable.attack_time" },{"default": "variable.medium_charge_default = variable.medium_charge_default > 0 ? variable.medium_charge_default - 1:0; return variable.medium_charge_default == 0;"}]},
+         "medium_charge_default_return": {
+          "transitions": [{"medium_charge_default": "!variable.attack_time"}]},
+
+        "short_charge_default": {
+          "animations": ["short_charge_default"],
+          "on_entry": [ "variable.short_charge_default = 12;" ],
+          "transitions": [ {"short_charge_default_return": "variable.attack_time"},{"default": "variable.short_charge_default = variable.short_charge_default > 0 ? variable.short_charge_default - 1:0; return variable.short_charge_default == 0;" }]},
+        "short_charge_default_return": {
+          "transitions": [{"short_charge_default": "!variable.attack_time"}]},
+
+        "no_weapon_charge": {
+          "animations": ["no_weapon_charge"],
+          "on_entry": ["variable.no_weapon_charge = 12;"],
+          "transitions": [{"no_weapon_charge_return": "variable.attack_time"},{"default": "variable.no_weapon_charge = variable.no_weapon_charge > 0 ? variable.no_weapon_charge - 1:0; return variable.no_weapon_charge == 0;"}]},
+        "no_weapon_charge_return": {
+          "transitions": [{"no_weapon_charge": "!variable.attack_time"}]},
+
+
+        //Sweeping Action
+        "long_tool_charge": {
+          "on_entry": ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 1 entity_attack entity @p"],
+          "transitions": [{"long_charge_default": "!variable.attack_time"}]},
+
+        "medium_tool_charge": {
+          "on_entry": [ "/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 3 entity_attack entity @p"],
+          "transitions": [{"medium_charge_default": "!variable.attack_time" }]},
+
+        "short_tool_charge": {
+          "on_entry": ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 6 entity_attack entity @p"],
+          "transitions": [{"short_charge_default": "!variable.attack_time"}]},
+
+        "no_tool_charge": {
+          "on_entry": [],
+          "transitions": [{"no_weapon_charge": "!variable.attack_time"}]}
+      }
+    }
+  }
+}

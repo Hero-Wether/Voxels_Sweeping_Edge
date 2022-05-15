@@ -1,0 +1,17 @@
+//LID_Cinema: Keyframe Entity RP
+{
+	"format_version": "1.18.0",
+	"minecraft:client_entity": {
+	  "description": {
+		"identifier": "lab:keyframe",
+		"materials": {"default": "entity_alphatest"},
+		"textures": {
+		  "default": "textures/plugins/cinema/keyframe"
+		},
+		"geometry": {
+		  "default": "geometry.lab.keyframe"
+		},
+	   "render_controllers": [ "controller.render.default"]
+	  }
+	}
+  }

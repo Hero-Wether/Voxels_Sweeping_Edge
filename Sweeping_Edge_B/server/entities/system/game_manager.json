@@ -1,0 +1,25 @@
+{
+	"format_version": "1.15.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "lab:game_manager",
+			"is_spawnable": false,"is_summonable": true,"is_experimental": false,
+			"scripts": {"animate": ["null"]},
+			"animations": {"null": "null"}
+		},
+		"component_groups": {
+			"lab:despawn": {"minecraft:instant_despawn": {}}
+		},
+		"components": {
+			"minecraft:health": {"value": 0.5,"max": 0.5},
+			"minecraft:collision_box": {"width": 0.5,"height": 0.5},
+			"minecraft:physics": {"has_gravity": false,"has_collision": false},
+			"minecraft:pushable": {"is_pushable": false,"is_pushable_by_piston": false},
+			"minecraft:type_family": {"family": ["game_manager","no_effect","game_object"]},
+			"minecraft:damage_sensor": {"triggers": {"cause": "all","deals_damage": false}}
+		},
+		"events": {
+			"lab:despawn_event": {"add": {"component_groups": ["lab:despawn"]}}
+		}
+	}
+}

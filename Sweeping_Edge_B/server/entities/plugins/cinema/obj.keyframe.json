@@ -1,0 +1,89 @@
+//LID_Cinema: Keyframe Entity BP
+{
+	"format_version": "1.18.0",
+	"minecraft:entity": {
+        "description": {
+            "identifier": "lab:keyframe",
+            "is_spawnable": false,
+            "is_summonable": true,
+            "is_experimental": false,
+            "scripts": {
+                "animate": [
+                    {"init": "q.is_saddled"},
+                    {"get.player": "q.is_sheared"}
+                ]
+            },
+            "animations": {
+                "get.player": "controller.animation.lab.kf.get_player",
+                "init": "animation.lab.cinema.init"
+            }
+        },
+        "component_groups": {
+            "lab:init":{
+             "minecraft:is_saddled":{},
+             "minecraft:timer": {"time": 0.1,"looping": false,"time_down_event": {"event": "lab:close_init_event","target": "self"}}
+            },
+            "lab:despawn": {"minecraft:instant_despawn": {}},
+            "lab:f.default":{"minecraft:skin_id":{"value":0}},
+            "lab:f.start":{"minecraft:skin_id":{"value":1}},
+            "lab:f.pause":{"minecraft:skin_id":{"value":2}},
+            "lab:f.stop":{"minecraft:skin_id":{"value":3}},
+            "lab:f.dolly":{"minecraft:skin_id":{"value":4}},
+            "lab:f.focus":{"minecraft:skin_id":{"value":5}},
+            "lab:get_player":{"minecraft:is_sheared":{},
+            "minecraft:timer": {
+                "time": 3.5,"looping": true,
+                "time_down_event": {"event": "lab:kill.get_player_event","target": "self"}
+              }
+            }
+        },
+		"components": {
+            "minecraft:variant":{"value":0},
+            "minecraft:mark_variant":{"value":0},
+            "minecraft:skin_id":{"value":0},
+			"minecraft:collision_box": {"width": 0.8,"height": 1.5},
+			"minecraft:physics": {"has_gravity": false,"has_collision": false},
+			"minecraft:pushable": {"is_pushable": false,"is_pushable_by_piston": false},
+			"minecraft:type_family": {"family": ["cinema","keyframe","game_object","no_effect"]},
+			"minecraft:damage_sensor": {"triggers": {"cause": "all","deals_damage": false}},
+			"minecraft:nameable": {},"minecraft:persistent": {},"minecraft:fire_immune": true,
+                "minecraft:environment_sensor": {
+                    "triggers": [
+                    {"filters": {"test": "has_tag", "subject": "self", "operator": "!=", "value": "final.frame"},"event": "lab:f.default"},
+                    {"filters": {"test": "has_tag", "subject": "self", "operator": "==", "value": "final.frame"},"event": "lab:f.stop_event"}
+                  ]
+                }
+		},
+		"events": {
+            "minecraft:entity_spawned": {"add": {"component_groups": ["lab:init"]}},
+            "lab:close_init_event": {"remove": {"component_groups": ["lab:init"]}},
+			"lab:despawn_event": {"add": {"component_groups": ["lab:despawn"]}},
+            "lab:f.start_event": {
+                "remove": {"component_groups": ["lab:f.pause","lab:f.stop","lab:f.dolly","lab:f.focus"]},
+                "add": {"component_groups": ["lab:f.start"]}
+            },
+            "lab:f.pause_event": {
+                "remove": {"component_groups": ["lab:f.start","lab:f.stop","lab:f.dolly","lab:f.focus"]},
+                "add": {"component_groups": ["lab:f.pause"]}
+            },
+			"lab:f.stop_event": {
+                "remove": {"component_groups": ["lab:f.start","lab:f.pause","lab:f.dolly","lab:f.focus"]},
+                "add": {"component_groups": ["lab:f.stop"]}
+            },
+			"lab:f.dolly_event": {
+                "remove": {"component_groups": ["lab:f.start","lab:f.pause","lab:f.stop","lab:f.focus"]},
+                "add": {"component_groups": ["lab:f.dolly"]}
+            },
+			"lab:f.focus_event": {
+                "remove": {"component_groups": ["lab:f.start","lab:f.pause","lab:f.stop","lab:f.dolly"]},
+                "add": {"component_groups": ["lab:f.focus"]}
+            },
+			"lab:get_player_event": {
+                "add": {"component_groups": ["lab:get_player"]}
+            },
+			"lab:kill.get_player_event": {
+                "remove": {"component_groups": ["lab:get_player"]}
+            }
+		}
+	}
+}

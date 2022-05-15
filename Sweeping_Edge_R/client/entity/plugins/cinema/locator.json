@@ -1,0 +1,17 @@
+//LID_Cinema: Locator Entity RP
+{
+	"format_version": "1.18.0",
+	"minecraft:client_entity": {
+	  "description": {
+		"identifier": "lab:locator",
+		"materials": {"default": "entity_alphatest"},
+		"textures": {
+		  "default": "textures/plugins/cinema/locator"
+		},
+		"geometry": {
+		  "default": "geometry.lab.locator"
+		},
+	   "render_controllers": [ "controller.render.default"]
+	  }
+	}
+  }

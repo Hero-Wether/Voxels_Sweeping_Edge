@@ -1,0 +1,34 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.player.no_weapon_cooldown": {
+      "loop": false,
+      "animation_length": 0.2500,
+      "timeline": {
+        "0.0": [
+          "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.one\"}]}",
+          "@s[tag=!sweeping] cooldown_attack"
+        ],
+        "0.0010": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.one\"}]}",
+        "0.0125": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.two\"}]}",
+        "0.0250": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.three\"}]}",
+        "0.0375": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.four\"}]}",
+        "0.0625": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.five\"}]}",
+        "0.0750": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.six\"}]}",
+        "0.0875": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.seven\"}]}",
+        "0.1125": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.eight\"}]}",
+        "0.1250": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.nine\"}]}",
+        "0.1375": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.ten\"}]}",
+        "0.1625": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.eleven\"}]}",
+        "0.1750": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.twelve\"}]}",
+        "0.1875": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.thirteen\"}]}",
+        "0.2125": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.fourteen\"}]}",
+        "0.2225": "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.fifteen\"}]}",
+        "0.2375":"/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.fifteen\"}]}",
+        "0.2500": [
+          "/titleraw @s[tag=!sweeping] actionbar {\"rawtext\":[{\"translate\":\"charge.fifteen\"}]}",
+          "@s[tag=!sweeping] default_attack"        ]
+      }
+    }
+  }
+}

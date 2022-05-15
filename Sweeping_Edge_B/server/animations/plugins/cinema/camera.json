@@ -1,0 +1,18 @@
+//LID_Cinema: Camera_animations
+{
+    "format_version": "1.10.0",
+    "animations": {
+        "animation.lab.cinema.init": {
+            "animation_length": 1.0,"loop": true,
+            "timeline": {
+                "0.0": ["/tag @e[tag=final.frame] remove final.frame","/tag @s add final.frame"]
+            }
+        },
+        "animation.lab.cinema.locator_loop": {
+            "animation_length": 1.0,"loop": true,
+            "timeline": {
+                "0.0": ["/function root/plugins/cinema/cinema_manager"]
+            }
+        }
+    }
+}

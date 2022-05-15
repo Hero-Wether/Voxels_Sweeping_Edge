@@ -1,0 +1,15 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+		"controller.animation.lab.player.root": {
+			"initial_state" : "state_filter",
+			"states": {
+				"controllers": {
+					"animations": ["lifetime.c","input.c","jump.c","sleep.c","moving.c","items.c","biome.c","l_level.c","rx_debug","ry_debug"],
+					"transitions": [{"state_filter": "query.all_animations_finished"}]
+				},
+				"state_filter": {"transitions": [{"controllers": "(1.0)"}]}
+			}
+		} 
+    }
+}

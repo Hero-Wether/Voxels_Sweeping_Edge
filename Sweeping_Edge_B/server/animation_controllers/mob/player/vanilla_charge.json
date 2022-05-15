@@ -1,0 +1,63 @@
+{
+  "format_version": "1.18.30",
+  "animation_controllers": {
+    "controller.animation.vanilla_charge": {
+      "states": {
+        "default": {
+          "on_entry": [
+            "@s default_attack"
+          ],
+          "transitions": [
+            {"woodensword_attack": "(variable.attack_time) && (query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:wooden_sword'))"},
+            {"stonesword_attack": "(variable.attack_time) && (query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:stone_sword'))"},
+            {"ironsword_attack": "(variable.attack_time) && (query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:iron_sword'))"},
+            {"goldensword_attack": "(variable.attack_time) && (query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:golden_sword'))"},
+            {"diamondsword_attack": "(variable.attack_time) && (query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:diamond_sword'))"},
+            {"netheritesword_attack": "(variable.attack_time) && (query.is_item_name_any('slot.weapon.mainhand', 0, 'minecraft:netherite_sword'))"}
+          ]
+        },
+        //Sweeping Animation Set Up
+        "long_charge_default": {
+          "animations": ["long_charge_default"],
+          "on_entry": ["variable.long_charge_default = 20;" ],
+          "transitions": [{"long_charge_default_return": "variable.attack_time"},{"default": "variable.long_charge_default = variable.long_charge_default > 0 ? variable.long_charge_default - 1:0; return variable.long_charge_default == 0;"}]},
+        "long_charge_default_return": {
+          "transitions": [{"long_charge_default": "!variable.attack_time"}]},          
+
+        "medium_charge_default": {
+          "animations": ["medium_charge_default"],
+          "on_entry": ["variable.medium_charge_default = 16;"],
+          "transitions": [ {"medium_charge_default_return": "variable.attack_time" },{"default": "variable.medium_charge_default = variable.medium_charge_default > 0 ? variable.medium_charge_default - 1:0; return variable.medium_charge_default == 0;"}]},
+         "medium_charge_default_return": {
+          "transitions": [{"medium_charge_default": "!variable.attack_time"}]},
+
+        "short_charge_default": {
+          "animations": ["short_charge_default"],
+          "on_entry": [ "variable.short_charge_default = 12;" ],
+          "transitions": [ {"short_charge_default_return": "variable.attack_time"},{"default": "variable.short_charge_default = variable.short_charge_default > 0 ? variable.short_charge_default - 1:0; return variable.short_charge_default == 0;" }]},
+        "short_charge_default_return": {
+          "transitions": [{"short_charge_default": "!variable.attack_time"}]},
+
+        //Sweeping Action
+          "woodensword_attack": {
+            "on_entry":  ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 1 entity_attack entity @p"],
+            "transitions": [{"short_charge_default": "!variable.attack_time"}]},
+          "stonesword_attack": {
+            "on_entry":  ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 2 entity_attack entity @p"],
+            "transitions": [{"short_charge_default": "!variable.attack_time"}]},
+          "goldensword_attack": {
+            "on_entry":  ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 3 entity_attack entity @p"],
+            "transitions": [{"medium_charge_default": "!variable.attack_time" }]},
+          "ironsword_attack": {
+            "on_entry":  ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 4 entity_attack entity @p"],
+            "transitions": [{"medium_charge_default": "!variable.attack_time"}]},
+          "diamondsword_attack": {
+            "on_entry":  ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 5 entity_attack entity @p"],
+            "transitions": [{"long_charge_default": "!variable.attack_time"}]},
+          "netheritesword_attack": {
+            "on_entry": ["/particle lab:sweep_single ^ ^1.8 ^2.5","/playsound game.player.attack.sweep @a ~ ~ ~ 0.8 1 0","/damage @e[type=!player, type=!item, r=2] 6 entity_attack entity @p"],
+            "transitions": [{"long_charge_default": "!variable.attack_time"}]}
+      }
+    }
+  }
+}
